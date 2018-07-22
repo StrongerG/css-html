@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Triangle</title>
+
+  <style type="text/css">
+    .triangle {
+      width: 0;
+      height: 0;
+      border-top: 20px solid #333;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+    }
+
+    .line {
+      width: 500px;
+      background-color: #000;
+    }
+    .one-px {
+      height: 1px;
+    }
+    .half-px1 {
+      height: 1px;
+      transform: scaleY(0.5);
+    }
+
+     /* linear-gradient(0deg, #fff, #000)的意思是：渐变的角度从下往上，从白色#fff渐变到黑色#000，而且是线性的，
+  在高清屏上，1px的逻辑像素代表的物理（设备）像素有2px，由于是线性渐变，
+  所以第1个px只能是#fff，而剩下的那个像素只能是#000，这样就达到了画一半的目的  */
+    .half-px2 {
+      height: 1px;
+      background: linear-gradient(0deg, #fff, #000);
+    }
+
+    .half-px3 {
+      height: 1px;
+      background: none;
+      box-shadow: 0 0.5px 0 #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="triangle"></div>
+
+  <p>1px</p>
+  <div class="line one-px"></div>
+
+  <p>0.5px: transform</p>
+  <div class="line half-px1"></div>
+
+  <p>0.5px: box-shadow</p>
+  <div class="line half-px2"></div>
+
+  <p>0.5px: linear-gradient</p>
+  <div class="line half-px3"></div>
+  
+</body>
+
+</html>

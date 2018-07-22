@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cubic-Bezier</title>
+
+  <style type="text/css">
+
+/* cubic-bezier can be reused for transition-timing-function properties, more powerful 
+than the built-in ease, ease-in, ease-out and ease-in-out */
+    .easing-variables {
+      margin-top: 200px;
+      margin-left: 200px;
+      width: 100px;
+      height: 100px;
+      background: pink;
+      transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .easing-variables:hover {
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="easing-variables"></div>
+</body>
+
+</html>

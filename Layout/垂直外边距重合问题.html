@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>垂直外边距重合问题</title>
+
+  <style type="text/css">
+    .aside1 {
+      margin-top: 100px;
+      width: 300px;
+      height: 300px;
+      background: green;
+    }
+
+    .inner {
+      margin-top: 200px;
+      width: 100px;
+      height: 100px;
+      background: red;
+    }
+
+    /* 解决父子 */
+
+    .aside2 {
+      margin-top: 100px;
+      width: 300px;
+      height: 300px;
+      background: green;
+      overflow: hidden;
+    }
+
+    /* 兄弟 */
+
+    .box1 {
+      width: 200px;
+      height: 200px;
+      background: yellow;
+      margin-bottom: 200px;
+    }
+
+    .box2 {
+      width: 200px;
+      height: 200px;
+      background: blue;
+      margin-top: 100px;
+    }
+
+    .container {
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 根据 BFC 的定义，两个元素只有在同一 BFC 内，才有可能发生垂直外边距的重叠，包括相邻元素、嵌套元素。
+      要解决 margin 重叠问题，只要让它们不在同一个 BFC 内就行。
+      对于相邻元素，只要给其中之一它们加上 BFC 的外壳，就能使它们的 margin 不重叠；
+      对于嵌套元素，只要让父级元素触发 BFC（此时，子元素处于父元素触发的BFC，而父元素处于外层的BFC），就能使父级 margin 和当前元素的 margin 不重叠。 -->
+
+  <!-- 父子元素 -->
+  <div class="aside1">
+    <div class="inner">
+      我是内部
+    </div>
+  </div>
+
+  <div class="aside2">
+    <div class="inner">
+      我是内部
+    </div>
+  </div>
+
+  <!-- 兄弟元素 -->
+  <div class="box1"></div>
+  <div class="box2"></div>
+
+  <div class="container">
+    <div class="box1"></div>
+  </div>
+  <div class="box2"></div>
+</body>
+
+</html>

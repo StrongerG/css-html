@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Custom text selection</title>
+
+  <style type="text/css">
+    .custom-text-selection::selection {
+      background: deeppink;
+      color: white;
+    }
+
+    .unselectable {
+      user-select: none;
+    }
+    
+    .etched-text {
+      text-shadow: 0 2px white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #b8bec5;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Select some text no ::selection.</p>
+  <p class="custom-text-selection">Select some of this text.</p>
+
+  <p class="unselectable">You can't select me!</p>
+
+  <p class="etched-text">I appear etched into the background.</p>
+</body>
+
+</html>

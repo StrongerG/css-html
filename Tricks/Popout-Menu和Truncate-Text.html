@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Popout-Menu and Truncate-Text</title>
+
+  <style type="text/css">
+    .reference {
+      position: relative;
+      width: 10rem;
+      height: 20rem;
+      background: pink;
+    }
+    .popout-menu {
+      position: absolute;
+      visibility: hidden;
+      /* 向右偏移 父元素的宽度的距离 */
+      left: 100%;
+      background: blue; 
+    }
+    /* 鼠标悬浮后显示 */
+    .reference:hover>.popout-menu {
+      visibility: visible;
+    }
+
+    .truncate-text {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reference">
+    <div class="popout-menu">
+      Popout menu
+    </div>
+  </div>
+
+  <p class="truncate-text">If I exceed one line's width, I will be truncated.</p>
+  
+</body>
+
+</html>

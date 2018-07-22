@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Constant width to height ratio</title>
+
+  <style type="text/css">
+    .constant-width-to-height-ratio {
+      background: #333;
+      width: 50%;
+    }
+    /* 100% therefore means the element's height will always be 100% of the width, 
+      creating a responsive square */
+    .constant-width-to-height-ratio::before {
+      content: "";
+      /* padding百分比值是相对于父元素的width，开启浮动使得伪元素脱离文档流从而具备高度属性 */
+      /* 另外，对行内元素的上、下padding以及margin即使设置了也是无效的，会像width和height一样被忽略 */
+      padding-top: 100%;   
+      float: left;
+    }
+    .constant-width-to-height-ratio::after {
+      /* 清楚浮动使得整个元素保持高度(padding-top) */
+      content: "";
+      display: block;
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="constant-width-to-height-ratio"></div>
+</body>
+</html>
