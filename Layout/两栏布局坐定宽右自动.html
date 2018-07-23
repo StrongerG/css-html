@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>两栏自适应布局方法总结</title>
+  <!-- float + margin
+  即固定宽度元素设置float属性为left,自适应元素设置margin属性，margin-left应>=定宽元素宽度 -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 法一 */
+
+    .wrap1 {
+      margin: 10px;
+    }
+    .wrap-left1 {
+      /* 或者利用绝对定位 */
+      float: left;
+      width: 200px;
+      background-color: red;
+    }
+    .wrap-right1 {
+      margin-left: 210px;
+      background-color: green;
+    }
+
+    /* 法二 */
+    .wrap2 {
+      margin: 10px;
+    }
+    .wrap-left2 {
+      float: left;
+      width: 300px;
+      background-color: blue;
+    }
+    .wrap-right2 {
+      /* 如果不开启BFC，则两者区域会重叠 */
+      overflow: hidden;
+      height: 200px;
+      background-color: pink;
+    }
+
+    /* 方法三 */
+    .wrap3 {
+      display: flex;
+      margin: 10px;
+    }
+    .wrap-left3 {
+      width: 400px;
+      background-color: aqua;
+    }
+    .wrap-right3 {
+      flex-grow: 1;
+      background-color: blueviolet;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 法一  利用float 或者 absolute，使左边脱离文档流，再给右边加一个margin-left-->
+  <div class="wrap1">
+    <div class="wrap-left1">
+      我是左栏
+    </div>
+    <div class="wrap-right1">
+      我是右栏
+    </div>
+  </div>
+
+  <!-- 法二 BFC-->
+  <div class="wrap2">
+    <div class="wrap-left2">
+      我是左栏
+    </div>
+    <div class="wrap-right2">
+      我是右栏
+    </div>
+  </div>
+
+  <!-- 法三 -->
+  <div class="wrap3">
+      <div class="wrap-left3">
+        我是左栏
+      </div>
+      <div class="wrap-right3">
+        我是右栏
+      </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>两侧定宽，中间自适应</title>
+  <!-- float + margin  需要注意的是这种方法 content 需要放在(float元素的)下面(和利用position一样) -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .wrap {
+      margin: 50px;
+    }
+    /* 方法一 */
+    .wrap-left {
+      width: 200px;
+      float: left;
+      background-color: red;
+    }
+    .wrap-content {
+      margin-left: 220px;
+      margin-right: 220px;
+      background-color: yellow;
+    }
+    .wrap-right {
+      width: 200px;
+      float: right;
+      background-color: green;
+    }
+
+    /* 方法二 */
+    .wrap-left2 {
+      width: 200px;
+      float: left;
+      background-color: aliceblue;
+    }
+    .wrap-right2 {
+      width: 200px;
+      float: right;
+      background-color: aquamarine;
+    }
+    .wrap-content2 {
+      overflow: hidden;
+      background-color: brown;
+      height: 200px;
+    }
+
+    /* 方法三：flex */
+    .wrap3 {
+      display: flex;
+      margin: 50px;
+    }
+    .wrap-left3 {
+      width: 200px;
+      background-color: red;
+    }
+    .wrap-right3 {
+      width: 200px;
+      background-color: green;
+    }
+    .wrap-content3 {
+      flex-grow: 1;
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 方法一  也是float或者absolute + margin
+            但是这种方法需要把 中间栏放在最后 -->
+  <div class="wrap">
+    <div class="wrap-left">
+      我是左栏
+    </div>
+    <!-- 注意注意注意注意注意注意注意注意注意注意注意注意 -->
+    <!-- 原因是 正常文档流元素会独自占完 整行 若是content在中间，即使是右边元素开启了浮动也会另起一行
+        而如果content在最后，前面开启float的元素会脱离文档流，在这里就是与content同居一行 
+      还要注意与 行内元素开启浮动后的区别，详见 22 号-->
+    <div class="wrap-right">
+      我是右栏
+    </div>
+    <div class="wrap-content">
+      我是中间栏
+    </div>
+  </div>
+
+  <!-- 方法二  BFC实现，并且content还是要放在最后-->
+  <div class="wrap">
+    <div class="wrap-left2">
+      我是左栏
+    </div>
+    <div class="wrap-right2">
+      我是右栏
+    </div>
+    <div class="wrap-content2">
+      我是中间栏
+    </div>
+  </div>
+
+  <!-- 方法三 flex 不用将content放在最后-->
+  <div class="wrap3">
+    <div class="wrap-left3">
+      我是左栏
+    </div>
+    <div class="wrap-content3">
+        我是中间栏
+    </div>  
+    <div class="wrap-right3">
+      我是右栏
+    </div>
+  </div>
+</body>
+
+</html>
