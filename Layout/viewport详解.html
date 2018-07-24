@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  移动端适配的 meta 标签到底干了什么？
+
+  先说明几个专有名词
+  1.分辨率  以iphone6为例，1334pt x 750pt 指的是屏幕上垂直有1334个物理像素，水平有750个物理像素
+  2.屏幕尺寸：4.7英寸，指的是屏幕对角线的长度，1英寸等于2.54cm
+  3.屏幕像素密度：326ppi 指的是每英寸屏幕所拥有的像素数，在显示器中，dpi=ppi，屏幕像素密度=分辨率/屏幕尺寸
+  4.设备独立像素：不同于设备像素（物理像素），它是虚拟化的。比如说css像素，我们常说的10px其实指的就是它。需要注意的是，物理像素开发者是无法获取的，它是自然存在的一种东西，该是多少就是多少
+  5.设备像素比：缩写简称dpr，设备像素比 = 设备像素 / css像素（垂直方向或水平方向）
+  
+  Viewport到底指什么?
+  1.布局视口  浏览器统一的设置，与具体的移动设备屏幕大小无关，如iphone的为980px；
+  2.视觉视口  于视觉视口来说，这个东西是呈现给用户的，它是用户看到网页区域内CSS像素的数量，缩放的越大，屏幕所呈现的CSS像素就越少；
+  3.理想视口  对设备来说最理想的布局视口尺寸，也就是设备屏幕的宽度，即把 布局视口设置为屏幕的宽度大小。
+    通过<meta name="viewport" content="width=device-width">  就可以做到。
+
+  那么 initial-scale=1.0 是做什么的呢？
+    initial-scale=1 的意思是初始缩放的比例是1，使用它的时候，同时也会将布局视口的尺寸设置为缩放后的尺寸。
+  而缩放的尺寸就是基于屏幕的宽度来的，也就起到了和 width=device-width同样的效果
+
+  那么为什么这两条都需要加上呢？
+    两者各有一个小缺陷，就是iphone、ipad以及IE 会横竖屏不分，通通以竖屏的ideal viewport宽度为准。
+  所以，最完美的写法应该是，两者都写上去，这样就 initial-scale=1 解决了 iphone、ipad的毛病，width=device-width则解决了IE的毛病
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  另外：如果width 和 initial-scale=1同时出现，并且还出现了冲突呢？比如：<meta name="viewport" content="width=400, initial-scale=1">
+  那么浏览器到底该服从哪个命令呢？当遇到这种情况时，浏览器会取它们两个中较大的那个值。（千万注意不是前后顺序）
+  
+  最后：动态的改变Viewport 标签
+  1. 可以使用document.write来动态输出meta viewport标签document.write('<meta name="viewport" content="width=device-width,initial-scale=1">')
+  2. 第二种方法 通过setAttribute来改变 
+   <meta id="testViewport" name="viewport" content="width = 380">
+   <script>
+   var mvp = document.getElementById('testViewport');
+   mvp.setAttribute('content','width=480');
+   </script>
+
+  <title>Viewport</title>
+  <style>
+    div {
+      background: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div>Viewport</div>
+</body>
+</html>

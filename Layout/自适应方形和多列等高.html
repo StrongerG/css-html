@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>自适应方形和多列等高</title>
+
+  <style type="text/css">
+  /* 自适应方形方法一 ：利用before和after伪元素 */
+    .constant-width-to-height-ratio {
+      background: #333;
+      width: 50%;
+    }
+    /* 100% therefore means the element's height will always be 100% of the width, 
+      creating a responsive square */
+    .constant-width-to-height-ratio::before {
+      content: "";
+      /* padding百分比值是相对于父元素的width，开启浮动使得伪元素脱离文档流从而具备高度属性 */
+      /* 另外，对行内元素的上、下padding以及margin即使设置了也是无效的，会像width和height一样被忽略 */
+      padding-top: 100%;   
+      float: left;
+    }
+    .constant-width-to-height-ratio::after {
+      /* 清楚浮动使得整个元素保持高度(padding-top) */
+      content: "";
+      display: block;
+      clear: both;
+    }
+  
+    /* 自适应方形方法二 */
+    /* <!-- 首先， 整个元素的高度为0，背景是被 padding-bottom 撑开的 -->
+   <!-- 其次, 元素的padding的百分比值四个值均根据父元素的宽度来计算的 , 100% 可以变成其他值, 可以变换为矩形--> */
+    .img {
+      width: 50%;
+      height: 0;
+      padding-bottom: 50%;		
+      /* overflow: hidden; */
+      background:url(./haha.png) center no-repeat;
+      background-size: cover;
+    }
+
+    /* 多列等高 */
+    .box {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .left {
+      float: left;
+      width: 20%;
+      min-height: 100px;
+      background: #543432;
+      padding-bottom: 2000px;
+      margin-bottom: -2000px;
+    }
+
+    .right {
+      float: right;
+      width: 80%;
+      height: 300px;
+      background: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 自适应方形一 -->
+  <div class="constant-width-to-height-ratio"></div>
+  <!-- 自适应方形二 -->
+  <div class="img"></div>
+
+  <!-- 多列等高 -->
+  <div class="box">
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+  <!-- 原理：首先把列的padding-bottom设为一个足够大的值，再把列的margin-bottom设一个与前面的padding-bottom的正值相抵消的负值，父容器设置超出隐藏，
+  这样子父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则父容器的高度被撑到它里面最高那列的高度，
+  其他比这列矮的列则会用它们的padding-bottom来补偿这部分高度差。因为背景是可以用在padding占用的空间里的，而且边框也是跟随padding变化的，所以就成功的完成了一个障眼法。 -->
+  
+  <!-- 重点：
+  1.background 会填充内边距 padding，而不会填充外边距 margin； 
+  2.在高度小的元素上加一个数值为正padding-bottom和一个数值为负margin-bottom， 这样padding超出外层容器高度的部分可以被margin设置的负值抵消掉（配合第三点）；
+  3.外层容器 通过 overflow:hidden; 根据元素最底的高度进行截取（下面的例子就是right容器的高度，默认right高度比left大）， 并且div内中文字在width;height;如果没有填满会溢出到padding中。
+  注意： padding-bottom、margin-bottom之和要等于0（建议值不要太大，够用就行） -->
+</body>
+</html>

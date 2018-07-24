@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行内元素的居中总结</title>
+  <!-- 文本单行时 -->
+  <!-- 1. 水平居中 父元素设置text-align: center -->
+  <!-- 2. 垂直居中 父元素设置设置 line-height = height 
+    原理：line-height的最终表现是通过inline box实现的，而无论inline box所占据的高度是多少（无论比文字大还是比文字小），其占据的空间都是与文字内容公用水平中垂线的。-->
+
+  <!-- 文本多行时 -->
+  <!-- 1. 原理和 单行2 相同， line-height = height / line_num -->
+  <!-- 2. 用一个 span 包裹，将其display属性转换为 inline-box，把整体当作一张图片进行居中 -->
+
+  <!-- 图片的居中 
+    #parent{
+    height: 150px;
+    line-height: 150px;
+    font-size: 0;
+  }
+  img#son{vertical-align: middle;} /*默认是基线对齐，改为middle*/
+  原理：vertical-align和line-height的基友关系 -->
+</head>
+
+<body>
+  <div style="background-color: yellow; height: 150px; text-align: center">
+    <div style="">I am a inline elements. I can transform to a inline-box elements.</div>
+  </div>
+  <hr/>
+  <div style="background-color: yellow; height: 150px; line-height: 150px">
+    <div style="">I am a inline elements. I can transform to a inline-box elements.</div>
+  </div>  
+  <hr/>
+  <div style="background-color: yellow; height: 150px; text-align: center; line-height: 150px">
+    <div style="">I am a inline elements. I can transform to a inline-box elements.</div>
+  </div>
+  <hr/>
+  <div style="background-color: yellow; height: 150px; text-align: center; line-height: 50px">
+    <div style="">I am a inline elements. I can transform to a inline-box elements.</div>
+    <div style="">I am a inline elements. I can transform to a inline-box elements.</div>
+    <div style="">I am a inline elements. I can transform to a inline-box elements.</div>
+  </div>
+  <hr/>
+
+</body>
+</html>

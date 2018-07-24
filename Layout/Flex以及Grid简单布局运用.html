@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Flex和Grid布局</title>
+  
+  <style>
+   /* flex四列等宽布局  */
+   /* flex属性 是 flex-grow, flex-shrink 和 flex-basis的简写
+   auto (1 1 auto)  none (0 0 auto)  1 ( 1 1 0)等 */
+    .parent1 {
+      height: 500px;
+      display: flex;
+    }
+    .column {
+      flex: 1;
+    }  
+    .column:nth-child(odd) {
+      background-color: aqua;
+    }
+    .column:nth-child(even) {
+      background-color: yellow;
+    }
+    .column:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    /* Flex九宫格布局 */
+    .parent2 {
+      width: 1200px;
+      height: 500px;
+      margin: 50px auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .row {
+      display: flex;
+      flex: 1;
+    }
+    .item {
+      flex: 1;
+      border: 1px solid red;
+    }
+
+    /* Flex全屏布局 */
+    #parent3 div {
+      border: 1px solid red;
+    }
+    #parent {
+      display: flex;
+      flex-direction: column;
+    }
+    #top {
+      height: 100px;
+    }
+    #bottom {
+      height: 50px;
+    }
+    #middle {
+      flex: 1;
+      display: flex;
+    }
+    #left {
+      width: 200px;
+    }
+    #right {
+      flex: 1;   /* 自动占满剩余空间 */
+      overflow: hidden;
+    }
+
+    /* Grid布局 */
+    .grid-layout {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-areas: 'sidebar header header' 'sidebar content content' 'sidebar footer  footer';
+      color: white;
+    }
+    .grid-layout>div {
+      background: #333;
+      padding: 10px;
+    }
+    .sidebar {
+      grid-area: sidebar;
+    }
+    .content {
+      grid-area: content;
+    }
+    .header {
+      grid-area: header;
+    }
+    .footer {
+      grid-area: footer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- flex四列等宽布局 -->
+  <div class="parent1">
+    <div class="column">First</div>
+    <div class="column">Second</div>
+    <div class="column">Third</div>
+    <div class="column">Fouth</div>
+  </div>
+
+  <!-- Flex九宫格布局 -->
+  <div class="parent2">
+    <div class="row">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+    </div>
+    <div class="row">
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+    </div>
+    <div class="row">
+      <div class="item">7</div>
+      <div class="item">8</div>
+      <div class="item">9</div>
+    </div>
+  </div>  
+
+  <!-- flex全屏布局 -->
+  <div id="parent3">
+    <div id="top">top</div>
+    <div id="middle">
+      <div id="left">left</div>
+      <div id="right">right</div>
+    </div>
+    <div id="bottom">bottom</div>
+  </div>
+
+  <!-- Grid布局 -->
+  <div class="grid-layout">
+    <div class="header">Header</div>
+    <div class="sidebar">Sidebar</div>
+    <div class="content">
+      Content
+      <br/> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    </div>
+    <div class="footer">Footer</div>
+  </div>
+</body>
+
+</html>

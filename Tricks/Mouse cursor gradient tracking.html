@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse cursor gradient tracking</title>
+  <!-- A hover effect where the gradient follows the mouse cursor. -->
+  <style type="text/css">
+    .mouse-cursor-gradient-tracking {
+      position: relative;
+      background: #7983ff;
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+      border: none;
+      /* 被span继承，文字颜色设为白色 */
+      color: white;
+      cursor: pointer;
+      /* 轮廓设为none */
+      outline: none;
+      /* 按钮外的效果隐藏 */
+      overflow: hidden;
+    }
+
+    .mouse-cursor-gradient-tracking span {
+      /* 这里需要设置为relative是因为：开启后子元素也就是span将会显示在上层，否则span的内容将会被::before伪元素的背景覆盖
+      （::before和其父元素这里也就是button是同级的元素） */
+      /* 原因大概在 https://segmentfault.com/q/1010000003874357/a-1020000003875957
+      另外，提醒一下当定义的CSS中有position属性值为absolute、relative或fixed时，用z-index此取值方可生效 */
+      position: relative;
+    }
+
+    .mouse-cursor-gradient-tracking::before {
+      --size: 0;
+      content: '';
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--size);
+      height: var(--size);
+      background: radial-gradient(circle closest-side, pink, transparent);
+      /* 配合JS使得展现出的渐变背景以鼠标为中心 */
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease;
+    }
+
+    .mouse-cursor-gradient-tracking:hover::before {
+      --size: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="mouse-cursor-gradient-tracking">
+    <span>Hover me</span>
+  </button>
+
+  <script type="text/javascript">
+    var btn = document.querySelector('.mouse-cursor-gradient-tracking')
+    btn.onmousemove = function (e) {
+      var x = e.pageX - btn.offsetLeft
+      var y = e.pageY - btn.offsetTop
+      btn.style.setProperty('--x', x + 'px')
+      btn.style.setProperty('--y', y + 'px')
+    }
+  </script>
+</body>
+
+</html>
