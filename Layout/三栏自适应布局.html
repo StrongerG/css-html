@@ -53,6 +53,7 @@
       margin: 50px;
     }
     .wrap-left3 {
+      /* 或者指定 flex-basis 这个属性也能设置为左右的固定宽度 */
       width: 200px;
       background-color: red;
     }
@@ -63,6 +64,63 @@
     .wrap-content3 {
       flex-grow: 1;
       background-color: yellow;
+    }
+
+    /* 圣杯布局 */
+    /* 首先设置left部分的margin-left为-100%,就会使left向左移动一整个行的宽度，由于left左边是父元素的边框，
+    所以left继续跳到上一行左移，一直移动到上一行的开头，并覆盖了main部分，left上移过后，right就会处于上一
+    行的开头位置，这时再设置right部分margin-left为负的宽度，right就会左移到上一行的末尾，最后利用相对定位分别给左右加上偏移，
+    使左右块移动到 container 的padding中 */
+    .container {
+      padding: 0 300px 0 200px;
+    }
+    .left, .main, .right {
+      position: relative;
+      min-height: 130px;
+      float: left;
+    }
+    .left {
+      left: -200px;
+      margin-left: -100%;
+      background: green;
+      width: 200px;
+    }
+    .right {
+      right: -300px;
+      margin-left: -300px;
+      background-color: red;
+      width: 300px;
+    }
+    .main {
+      background-color: blue;
+      width: 100%;
+    }
+
+    /* 双飞翼布局 */
+    /* 圣杯布局和双飞翼布局解决问题的方案在前一半是相同的，也就是三栏全部float浮动，但左右两栏加上负margin让其跟中间栏div并排
+    ，以形成三栏布局。不同在于解决 “中间栏div内容不被遮挡”问题的思路不一样.
+    简单说起来就是：双飞翼布局比圣杯布局多创建了一个div，但不用相对布局了。 */
+    .left1, .main1, .right1 {
+      float: left;
+      min-height: 130px;
+      text-align: center;
+    }
+    .left1 {
+      background-color: aqua;
+      width: 200px;
+      margin-left: -100%;
+    }
+    .main1 {
+      background-color: blue;
+      width: 100%;
+    }
+    .right1 {
+      background-color: red;
+      width: 300px;
+      margin-left: -300px;
+    }
+    .content1 {
+      margin: 0 300px 0 200px;
     }
   </style>
 </head>
@@ -110,6 +168,23 @@
     <div class="wrap-right3">
       我是右栏
     </div>
+  </div>
+
+  <!-- 圣杯布局 -->
+  <div class="container">
+    <!-- 将main放在最前面能够最先渲染 -->
+    <div class="main">main</div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+  </div>
+
+  <!-- 双飞翼布局 -->
+  <div class="container1">
+    <div class="main1">
+      <div class="content1">main</div>
+    </div>
+    <div class="left1">left</div>
+    <div class="right1">right</div>
   </div>
 </body>
 
