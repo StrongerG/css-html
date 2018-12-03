@@ -41,69 +41,30 @@
 <body>
   <div id="container"></div>
   <button id="controlButton" class="button">Control Toggle</button>
-  <button id="modeButton" class="button">Mode Toggle</button>
-  <button id="videoButton" class="button">Video Toggle</button>
 
   <script src="./three.min.js"></script>
   <script src="./panolens.min.js"></script>
   <script>
-    var panorama, viewer, container, infospot, controlButton, modeButton, videoButton;
+    var panorama, viewer, container, controlButton;
 
     var controlIndex = PANOLENS.Controls.ORBIT;
-    var modeIndex = 0;
-    var videoPlaying = false;
 
     container = document.querySelector('#container');
     controlButton = document.querySelector('#controlButton');
-    modeButton = document.querySelector('#modeButton');
-    videoButton = document.querySelector('#videoButton');
 
     panorama = new PANOLENS.ImagePanorama('https://pchen66.github.io/Panolens/examples/asset/textures/equirectangular/planet.jpg');
-
-    infospot = new PANOLENS.Infospot(350, PANOLENS.DataImage.Info);
-    infospot.position.set(0, -2000, -5000);
-
-    panorama.add(infospot);
 
     viewer = new PANOLENS.Viewer({ container: container });
     viewer.add(panorama);
 
     // Method to trigger control
     controlButton.addEventListener('click', function () {
-
       controlIndex = controlIndex >= 1 ? 0 : controlIndex + 1;
-
       switch (controlIndex) {
-
         case 0: viewer.enableControl(PANOLENS.Controls.ORBIT); break;
         case 1: viewer.enableControl(PANOLENS.Controls.DEVICEORIENTATION); break;
         default: break;
-
       }
-
-    });
-
-    modeButton.addEventListener('click', function () {
-
-      modeIndex = modeIndex >= 2 ? 0 : modeIndex + 1;
-
-      switch (modeIndex) {
-
-        case 0: viewer.disableEffect(); break;
-        case 1: viewer.enableEffect(PANOLENS.Modes.CARDBOARD); break;
-        case 2: viewer.enableEffect(PANOLENS.Modes.STEREO); break;
-        default: break;
-
-      }
-
-    });
-
-    // if it's video panorama
-    videoButton.addEventListener('click', function () {
-
-      videoPlaying = !videoPlaying;
-      viewer.toggleVideoPlay(videoPlaying ? false : true);
-
     });
   </script>
 </body>
