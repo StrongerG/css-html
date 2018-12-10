@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pano</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    #container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .button {
+      position: absolute;
+      left: 10px;
+      padding: 20px;
+    }
+
+    #controlButton {
+      top: 10px;
+    }
+
+    #modeButton {
+      top: 80px;
+    }
+
+    #videoButton {
+      top: 150px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <button id="controlButton" class="button">Control Toggle</button>
+
+  <script src="./three.min.js"></script>
+  <script src="./panolens.min.js"></script>
+  <script>
+    var panorama, viewer, container, controlButton;
+
+    var controlIndex = PANOLENS.Controls.ORBIT;
+
+    container = document.querySelector('#container');
+    controlButton = document.querySelector('#controlButton');
+
+    panorama = new PANOLENS.ImagePanorama('./building.jpg');
+
+    viewer = new PANOLENS.Viewer({ container: container });
+    viewer.add(panorama);
+
+    // Method to trigger control
+    controlButton.addEventListener('click', function () {
+      controlIndex = controlIndex >= 1 ? 0 : controlIndex + 1;
+      switch (controlIndex) {
+        case 0: viewer.enableControl(PANOLENS.Controls.ORBIT); break;
+        case 1: viewer.enableControl(PANOLENS.Controls.DEVICEORIENTATION); break;
+        default: break;
+      }
+    });
+  </script>
+</body>
+
+</html>
